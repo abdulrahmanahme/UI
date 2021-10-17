@@ -53,6 +53,145 @@ class ButtonWidget extends StatelessWidget {
   }
 }
 
+Widget defaultFormField({
+  required TextEditingController? controller,
+  required TextInputType? type,
+  ValueChanged<String>? onSubmit,
+  ValueChanged<String>? onChange,
+  bool isPassword = false,
+  required FormFieldValidator<String>? validate,
+  String? label,
+  TextStyle? labelStyle,
+  String? hintText,
+  IconData? prefix,
+  TextStyle? style,
+  IconData? suffix,
+  Function? suffixpress,
+  Widget? suffixIcon,
+}) =>
+    Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        ),
+        child: TextFormField(
+          controller: controller,
+          keyboardType: type,
+          obscureText: isPassword,
+          onFieldSubmitted: onSubmit,
+          onChanged: onChange,
+          validator: validate,
+          style: style,
+          decoration: InputDecoration(
+            // errorStyle: TextStyle(height: 1),
+
+            labelText: label,
+            labelStyle: labelStyle,
+            hintText: hintText,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0),
+              borderSide: BorderSide.none,
+            ),
+            prefixIcon: Icon(
+              prefix,
+              color: Colors.black,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0),
+              // borderSide: BorderSide.none,
+
+              borderSide: BorderSide(
+                color: Colors.grey,
+                width: 2.0,
+              ),
+            ),
+
+            suffixIcon: suffixIcon,
+
+            // suffixIcon: IconButton(
+            //     icon: Icon(
+            //       suffix,
+            //     ),
+            //     onPressed: () {
+            //       suffixpress!;
+            //     }),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.0),
+              borderSide: BorderSide(
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+class DropDownWidget extends StatefulWidget {
+  DropDownWidget({this.lable});
+  Widget? lable;
+
+  @override
+  _DropDownWidgetState createState() => _DropDownWidgetState();
+}
+
+class _DropDownWidgetState extends State<DropDownWidget> {
+  String selectedValue = "USA";
+  String? newValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+        ),
+        child: DropdownButtonFormField(
+            decoration: InputDecoration(
+              label: Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: widget.lable,
+              ),
+              labelStyle: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                // borderSide: BorderSide(color: Colors.grey, width: 2),
+                borderSide: BorderSide.none,
+
+                borderRadius: BorderRadius.circular(12),
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.blue, width: 2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+            validator: (value) => value == null ? "Select a country" : null,
+            dropdownColor: Colors.white,
+            value: selectedValue,
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedValue = newValue!;
+              });
+            },
+
+            // there are  a function in ** widgets file ** that has all data about  **called  dropdownItems**  the  DropdownButtonFormField  you can find
+            items: dropdownItems),
+      ),
+    );
+  }
+}
+
 class SwiftWidget extends StatelessWidget {
   SwiftWidget({this.copyValue, this.name});
 
